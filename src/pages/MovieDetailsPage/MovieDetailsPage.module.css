@@ -1,0 +1,39 @@
+/* MovieDetailsPage.module.css */
+
+.container {
+  padding: 20px;
+}
+
+.loader {
+  text-align: center;
+  margin: 20px;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+}
+
+.nav a {
+  margin-right: 10px;
+  text-decoration: none;
+  color: #007bff;
+  margin-left: 24px;
+}
+
+.nav a.active {
+  font-weight: bold;
+  color: #0056b3;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.details img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
