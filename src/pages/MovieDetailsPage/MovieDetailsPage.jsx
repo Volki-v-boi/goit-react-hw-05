@@ -1,7 +1,13 @@
-import { NavLink, Outlet, useParams } from "react-router-dom";
+import {
+  useParams,
+  useNavigate,
+  useLocation,
+  NavLink,
+  Outlet,
+} from "react-router-dom";
 import { fetchMovieById } from "../../movies-api";
-import { useEffect, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import { useEffect, useState, useRef } from "react";
+import { Toaster, toast } from "react-hot-toast";
 
 import Loader from "../../components/Loader/Loader";
 import ShortMovieDetails from "../../components/ShortMovieDetails/ShortMovieDetails";
@@ -11,6 +17,9 @@ export default function MovieDetailsPage() {
   const { movieId } = useParams();
   const [trendingMovies, setTrendingMovies] = useState(null);
   const [loader, setLoader] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const prevLocation = useRef(location.state?.from ?? "/");
 
   useEffect(() => {
     async function getMovies() {
@@ -27,8 +36,13 @@ export default function MovieDetailsPage() {
     getMovies();
   }, [movieId]);
 
+  const handleGoBack = () => navigate(prevLocation.current);
+
   return (
     <div className={styles.container}>
+      <button onClick={handleGoBack} className={styles.goBackButton}>
+        Go Back
+      </button>
       {trendingMovies && (
         <ShortMovieDetails
           results={trendingMovies}
@@ -43,13 +57,13 @@ export default function MovieDetailsPage() {
       <nav className={styles.nav}>
         <NavLink
           to="cast"
-          className={({ isActive }) => (isActive ? "active" : "")}
+          className={({ isActive }) => (isActive ? styles.active : "")}
         >
           Casts
         </NavLink>
         <NavLink
           to="reviews"
-          className={({ isActive }) => (isActive ? "active" : "")}
+          className={({ isActive }) => (isActive ? styles.active : "")}
         >
           Reviews
         </NavLink>

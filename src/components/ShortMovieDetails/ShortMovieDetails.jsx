@@ -1,20 +1,10 @@
-import { useNavigate } from "react-router-dom";
 import styles from "./ShortMovieDetails.module.css";
 
 export default function ShortMovieDetails({
   results: { title, vote_average, overview, genres, poster_path },
 }) {
-  const navigate = useNavigate();
-
   return (
     <div className={styles.container}>
-      <button
-        type="button"
-        className={styles.goBackButton}
-        onClick={() => navigate(-1)}
-      >
-        Go back
-      </button>
       <img
         src={"https://image.tmdb.org/t/p/w500" + poster_path}
         alt={`Poster of ${title}`}

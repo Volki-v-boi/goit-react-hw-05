@@ -3,9 +3,8 @@ import Navigation from "../Navigation/Navigation";
 import { lazy, Suspense } from "react";
 
 const HomePage = lazy(() => import("../../pages/HomePage/HomePage"));
-const SearchMoviesPage = lazy(() =>
-  import("../../pages/SearchMoviesPage/SearchMoviesPage")
-);
+const MoviesPage = lazy(() => import("../../pages/MoviesPage/MoviesPage"));
+
 const MovieDetailsPage = lazy(() =>
   import("../../pages/MovieDetailsPage/MovieDetailsPage")
 );
@@ -19,7 +18,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Navigation />}>
           <Route index element={<HomePage />} />
-          <Route path="movies" element={<SearchMoviesPage />} />
+          <Route path="movies" element={<MoviesPage />} />
           <Route path="movies/:movieId" element={<MovieDetailsPage />}>
             <Route path="cast" element={<MoviesCast />} />
             <Route path="reviews" element={<MovieReviews />} />

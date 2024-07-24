@@ -1,10 +1,11 @@
 import { Formik, Form, Field } from "formik";
-import { searchMovie } from "../movies-api";
+import { searchMovie } from "../../movies-api";
 import { useEffect, useState } from "react";
-import Loader from "../components/Loader/Loader";
-import MovieList from "../components/MovieList/MovieList";
+import Loader from "../../components/Loader/Loader";
+import MovieList from "../../components/MovieList/MovieList";
 import { useSearchParams } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import styles from "./MoviesPage.module.css";
 
 export default function SearchMoviesPage() {
   const [topic, setTopic] = useState([]);
@@ -35,7 +36,7 @@ export default function SearchMoviesPage() {
   }, [query]);
 
   return (
-    <>
+    <div className={styles.container}>
       <Formik
         initialValues={{ topic: "" }}
         onSubmit={(values, actions) => {
@@ -48,14 +49,22 @@ export default function SearchMoviesPage() {
           }
         }}
       >
-        <Form>
-          <Field type="text" name="topic" placeholder="Search for movies..." />
-          <button type="submit">Search</button>
+        <Form className={styles.form}>
+          <Field
+            type="text"
+            name="topic"
+            placeholder="Search for movies..."
+            className={styles.input}
+          />
+          <button type="submit" className={styles.button}>
+            Search
+          </button>
         </Form>
       </Formik>
+
       {loading && <Loader />}
       {!loading && <MovieList trendingMovies={topic} />}
-      <Toaster /> {/* Компонент Toaster для отображения уведомлений */}
-    </>
+      <Toaster />
+    </div>
   );
 }
